@@ -198,7 +198,7 @@ def main():
 
                 pl = policy_loss_soft_targets(logits, target_pi)
                 # value head：你现在用 tanh 把输出夹到 [-1,1] 是合理的
-                vl = F.mse_loss(torch.tanh(v), target_z)
+                vl = F.mse_loss(v.view(-1), target_z)
                 loss = pl + args.value_weight * vl
 
                 # grad accum: 让每个 micro-step 的 loss 缩小
